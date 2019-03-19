@@ -1,8 +1,8 @@
-package TicTacToe;
-
-import ArtificialIntelligence.Algorithms;
+package game;
 
 import java.util.Scanner;
+
+import heuristic.Algorithms;
 
 /**
  * For playing Tic Tac Toe in the console.
@@ -129,12 +129,6 @@ public class Console {
     public static void main(String[] args) {
         Console ticTacToe = new Console();
         ticTacToe.play();
-//        ticTacToe.board.move(0);
-//        ticTacToe.board.move(5);
-//        ticTacToe.board.move(1);
-//        ticTacToe.board.move(10);
-//        ticTacToe.board.move(3);
-//        ticTacToe.board.move(15);
         ticTacToe.printGameStatus();
         System.out.println(ticTacToe.board.isGameOver());
     }

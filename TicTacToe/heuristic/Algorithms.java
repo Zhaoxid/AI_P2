@@ -1,6 +1,6 @@
-package ArtificialIntelligence;
+package heuristic;
 
-import TicTacToe.Board;
+import game.Board;
 
 /**
  * Uses various algorithms to play Tic Tac Toe.

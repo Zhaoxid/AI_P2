@@ -1,6 +1,6 @@
-package ArtificialIntelligence;
+package heuristic;
 
-import TicTacToe.Board;
+import game.Board;
 
 /**
  * Uses the MiniMax algorithm to play a move in a game of Tic Tac Toe.

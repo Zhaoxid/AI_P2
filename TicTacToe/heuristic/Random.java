@@ -1,6 +1,6 @@
-package ArtificialIntelligence;
+package heuristic;
 
-import TicTacToe.Board;
+import game.Board;
 
 /**
  * Plays a random move in Tic Tac Toe.
