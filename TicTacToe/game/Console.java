@@ -29,7 +29,8 @@ public class Console {
         while (true) {
             printGameStatus();
             playMove();
-            System.out.println("over ? " + board.isGameOver());
+            if (board.isGameOver())
+            	System.out.println("Game is Over");
             if (board.isGameOver()) {
                 printWinner();
 
@@ -47,8 +48,7 @@ public class Console {
         if (board.getTurn() == Board.State.X) {
             getPlayerMove();
         } else {
-//            Algorithms.alphaBetaPruning(board);
-           Algorithms.alphaBetaPruning(board);
+           Algorithms.alphaBetaAdvanced(board);
 
         }
     }

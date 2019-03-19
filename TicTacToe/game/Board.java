@@ -7,8 +7,8 @@ import java.util.HashSet;
  */
 public class Board {
 
-    static final int BOARD_WIDTH = 4;
-    static final int PARTS_TO_WIN = 3;
+    static final int BOARD_WIDTH = 5;
+    static final int PARTS_TO_WIN = 4;
 
     public enum State {Blank, X, O}
     private State[][] board;
@@ -151,21 +151,6 @@ public class Board {
      * @param row       the row to check
      */
     private void checkRow (int column, int row) {
-//        for (int i = 1; i < PARTS_TO_WIN ; i++) {
-//            System.out.println("PARTS_TO_WIN  " + PARTS_TO_WIN);
-//            System.out.println("i  " + i);
-//            System.out.println("row  " + row);
-//            System.out.println(board[row][i]);
-//            System.out.println(board[row][i -1]);
-//            if (board[row][i] != board[row][i-1]) {
-//                break;
-//            }
-//            if (i == PARTS_TO_WIN -1) {
-//                winner = playersTurn;
-//                System.out.println("checkRow true");
-//                gameOver = true;
-//            }
-//        }
         int left = 1, right = 1;
         for (int i = column; i > 0; i--) {
             if (board[row][i] != board[row][i - 1]) {
@@ -181,7 +166,6 @@ public class Board {
         }
         if (left + right - 1 >= PARTS_TO_WIN) {
             winner = playersTurn;
-            System.out.println("checkRow true");
             gameOver = true;
         }
     }
@@ -191,16 +175,6 @@ public class Board {
      * @param column    the column to check
      */
     private void checkColumn (int column, int row) {
-//        for (int i = 1; i < PARTS_TO_WIN; i++) {
-//            if (board[i][column] != board[i-1][column]) {
-//                break;
-//            }
-//            if (i == PARTS_TO_WIN -1) {
-//                winner = playersTurn;
-//                System.out.println("checkColumn true");
-//                gameOver = true;
-//            }
-//        }
         int up = 1, down = 1;
         for (int i = row; i > 0; i--) {
             if (board[i][column] != board[i - 1][column]) {
@@ -217,7 +191,6 @@ public class Board {
 
         if (up + down - 1 >= PARTS_TO_WIN) {
             winner = playersTurn;
-            System.out.println("checkColumn true");
             gameOver = true;
         }
     }
@@ -228,18 +201,6 @@ public class Board {
      * @param y         the y coordinate of the most recently played move
      */
     private void checkDiagonalFromTopLeft (int column, int row) {
-//        if (x == y) {
-//            for (int i = 1; i < PARTS_TO_WIN; i++) {
-//                if (board[i][i] != board[i-1][i-1]) {
-//                    break;
-//                }
-//                if (i == PARTS_TO_WIN -1) {
-//                    winner = playersTurn;
-//                    System.out.println("checkDiagonal1 true");
-//                    gameOver = true;
-//                }
-//            }
-//        }
         int up = 1, down = 1;
         int x = row, y = column;
         while (x > 0 && y > 0 && board[x][y] == board[x - 1][y - 1]) {
@@ -255,7 +216,6 @@ public class Board {
         }
         if (up + down - 1 >= PARTS_TO_WIN) {
             winner = playersTurn;
-            System.out.println("checkDiagonalFromTopLeft");
             gameOver = true;
         }
 
@@ -267,19 +227,6 @@ public class Board {
      * @param y     the y coordinate of the most recently played move
      */
     private void checkDiagonalFromTopRight (int column, int row) {
-//        if (BOARD_WIDTH -1-x == y) {
-//            for (int i = 1; i < BOARD_WIDTH; i++) {
-//                if (board[BOARD_WIDTH -1-i][i] != board[BOARD_WIDTH -i][i-1]) {
-//                    break;
-//                }
-//                if (i == BOARD_WIDTH -1) {
-//                    winner = playersTurn;
-//                    System.out.println("checkDiagonal2 true");
-//                    gameOver = true;
-//                }
-//            }
-//        }
-
         int up = 1, down = 1;
         int x = row, y = column;
         while (x > 0 && y < BOARD_WIDTH - 1 && board[x][y] == board[x - 1][y + 1]) {
@@ -296,7 +243,6 @@ public class Board {
         }
         if (up + down - 1 >= PARTS_TO_WIN) {
             winner = playersTurn;
-            System.out.println("checkDiagonalFromTopRight");
             gameOver = true;
         }
     }

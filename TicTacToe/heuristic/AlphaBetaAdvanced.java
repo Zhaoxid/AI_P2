@@ -71,7 +71,6 @@ class AlphaBetaAdvanced {
      * @return              the score of the board
      */
     private static int getMax (Board.State player, Board board, double alpha, double beta, int currentPly) {
-        System.out.println("getMax");
         int indexOfBestMove = -1;
 
         for (Integer theMove : board.getAvailableMoves()) {
@@ -106,7 +105,6 @@ class AlphaBetaAdvanced {
      * @return              the score of the board
      */
     private static int getMin (Board.State player, Board board, double alpha, double beta, int currentPly) {
-        System.out.println("getMin");
         int indexOfBestMove = -1;
 
         for (Integer theMove : board.getAvailableMoves()) {
