@@ -16,13 +16,7 @@ public class Algorithms {
         MiniMax.run(board.getTurn(), board, ply);
     }
 
-    public static void alphaBetaAdvanced (Board board) {
-        AlphaBetaAdvanced.run(board.getTurn(), board, 7);
+    public static void alphaBetaPruning (Board board) {
+        AlphaBetaPruning.run(board.getTurn(), board, Double.POSITIVE_INFINITY, 0, 3);
     }
-
-    // ply the maximum depth
-    public static void alphaBetaAdvanced (Board board, int ply) {
-        AlphaBetaAdvanced.run(board.getTurn(), board, ply);
-    }
-
 }
