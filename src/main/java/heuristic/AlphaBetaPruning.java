@@ -92,11 +92,6 @@ class AlphaBetaPruning {
     }
 
     private static int score (Board.State player, Board board, int currentDepth) {
-
-        if (player == Board.State.Blank) {
-            throw new IllegalArgumentException("Player must be X or O.");
-        }
-
         Board.State opponent = (player == Board.State.X) ? Board.State.O : Board.State.X;
 
         if (board.isGameOver() && board.getWinner() == player) {

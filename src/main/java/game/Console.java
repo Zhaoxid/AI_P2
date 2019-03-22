@@ -89,7 +89,6 @@ public class Console {
 
     private void printWinner () {
         Board.State winner = board.getWinner();
-
         System.out.println("\n" + board + "\n");
 
         if (winner == Board.State.Blank) {
