@@ -17,20 +17,6 @@ public class Console {
         board = new Board(board_width, parts_to_win);
     }
 
-//    public void play () {
-//
-//        System.out.println("Starting a new game.");
-//        Algorithms.alphaBetaPruning(board);
-//        int index = 0, x, y;
-//        while (true) {
-//            printGameStatus();
-//            index = getPlayerMove();
-//            x = index % board.getBoardWidth();
-//            y = index / board.getBoardWidth();
-//            playMove(x, y);
-//        }
-//    }
-
     public String playMove (String moveString) {
     	int indexInt, x, y;
     	String indexStr;
@@ -88,35 +74,19 @@ public class Console {
         }
         return "";
     }
-    /**
-     * Print out the board and the player who's turn it is.
-     */
+
     public void printGameStatus () {
         System.out.println("\n" + board + "\n");
         System.out.println(board.getTurn().name() + "'s turn.");
     }
 
-    /**
-     * For reading in and interpreting the move that the user types into the console.
-     */
     private int getPlayerMove () {
         System.out.print("Index of move: ");
 
         int move = sc.nextInt();
         return move;
-//        if (move < 0 || move >= board.getBoardWidth()* board.getBoardWidth()) {
-//            System.out.println("\nInvalid move.");
-//            System.out.println("\nThe index of the move must be between 0 and "
-//                    + (board.getBoardWidth() * board.getBoardWidth() - 1) + ", inclusive.");
-//        } else if (!board.move(move)) {
-//            System.out.println("\nInvalid move.");
-//            System.out.println("\nThe selected index must be blank.");
-//        }
     }
 
-    /**
-     * Print out the winner of the game.
-     */
     private void printWinner () {
         Board.State winner = board.getWinner();
 
@@ -129,35 +99,4 @@ public class Console {
         }
     }
 
-    /**
-     * Reset the game if the player wants to play again.
-     * @return      true if the player wants to play again
-     */
-    private boolean tryAgain () {
-        if (promptTryAgain()) {
-            board.reset();
-            System.out.println("Started new game.");
-            System.out.println("X's turn.");
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Ask the player if they want to play again.
-     * @return      true if the player wants to play again
-     */
-    private boolean promptTryAgain () {
-        while (true) {
-            System.out.print("Would you like to start a new game? (Y/N): ");
-            String response = sc.next();
-            if (response.equalsIgnoreCase("y")) {
-                return true;
-            } else if (response.equalsIgnoreCase("n")) {
-                return false;
-            }
-            System.out.println("Invalid input.");
-        }
-    }
 }

@@ -2,9 +2,6 @@ package game;
 
 import java.util.HashSet;
 
-/**
- * Represents the Tic Tac Toe board.
- */
 public class Board {
 
     private static int BOARD_WIDTH = 3;
@@ -35,10 +32,6 @@ public class Board {
     	return PARTS_TO_WIN;
     }
     
-    /**
-     * Set the cells to be blank and load the available moves (all the moves are
-     * available at the start of the game).
-     */
     private void initialize () {
         for (int row = 0; row < BOARD_WIDTH; row++) {
             for (int col = 0; col < BOARD_WIDTH; col++) {
@@ -53,9 +46,6 @@ public class Board {
         }
     }
 
-    /**
-     * Restart the game with a new blank board.
-     */
     void reset () {
         moveCount = 0;
         gameOver = false;
@@ -64,21 +54,10 @@ public class Board {
         initialize();
     }
 
-    /**
-     * Places an X or an O on the specified index depending on whose turn it is.
-     * @param index     the position on the board (example: index 4 is location (0, 1))
-     * @return          true if the move has not already been played
-     */
     public boolean move (int index) {
         return move(index% BOARD_WIDTH, index/ BOARD_WIDTH);
     }
 
-    /**
-     * Places an X or an O on the specified location depending on who turn it is.
-     * @param x         the x coordinate of the location
-     * @param y         the y coordinate of the location
-     * @return          true if the move has not already been played
-     */
     private boolean move (int x, int y) {
 
         if (gameOver) {
@@ -110,34 +89,18 @@ public class Board {
         return true;
     }
 
-    /**
-     * Check to see if the game is over (if there is a winner or a draw).
-     * @return          true if the game is over
-     */
     public boolean isGameOver () {
         return gameOver;
     }
 
-    /**
-     * Get a copy of the array that represents the board.
-     * @return          the board array
-     */
     State[][] toArray () {
         return board.clone();
     }
 
-    /**
-     * Check to see who's turn it is.
-     * @return          the player who's turn it is
-     */
     public State getTurn () {
         return playersTurn;
     }
 
-    /**
-     * Check to see who won.
-     * @return          the player who won (or Blank if the game is a draw)
-     */
     public State getWinner () {
         if (!gameOver) {
             throw new IllegalStateException("TicTacToe is not over yet.");
@@ -145,18 +108,10 @@ public class Board {
         return winner;
     }
 
-    /**
-     * Get the indexes of all the positions on the board that are empty.
-     * @return          the empty cells
-     */
     public HashSet<Integer> getAvailableMoves () {
         return movesAvailable;
     }
 
-    /**
-     * Checks the specified row to see if there is a winner.
-     * @param row       the row to check
-     */
     private void checkRow (int column, int row) {
         int left = 1, right = 1;
         for (int i = column; i > 0; i--) {
@@ -177,10 +132,6 @@ public class Board {
         }
     }
 
-    /**
-     * Checks the specified column to see if there is a winner.
-     * @param column    the column to check
-     */
     private void checkColumn (int column, int row) {
         int up = 1, down = 1;
         for (int i = row; i > 0; i--) {
@@ -202,11 +153,6 @@ public class Board {
         }
     }
 
-    /**
-     * Check the left diagonal to see if there is a winner.
-     * @param x         the x coordinate of the most recently played move
-     * @param y         the y coordinate of the most recently played move
-     */
     private void checkDiagonalFromTopLeft (int column, int row) {
         int up = 1, down = 1;
         int x = row, y = column;
@@ -228,11 +174,6 @@ public class Board {
 
     }
 
-    /**
-     * Check the right diagonal to see if there is a winner.
-     * @param x     the x coordinate of the most recently played move
-     * @param y     the y coordinate of the most recently played move
-     */
     private void checkDiagonalFromTopRight (int column, int row) {
         int up = 1, down = 1;
         int x = row, y = column;
@@ -254,10 +195,6 @@ public class Board {
         }
     }
 
-    /**
-     * Get a deep copy of the Tic Tac Toe board.
-     * @return      an identical copy of the board
-     */
     public Board getDeepCopy () {
         Board board             = new Board(BOARD_WIDTH, PARTS_TO_WIN);
 
