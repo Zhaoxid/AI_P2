@@ -2,74 +2,45 @@ package heuristic;
 
 import game.Board;
 
-/**
- * Uses the Alpha-Beta Pruning algorithm to play a move in a game of Tic Tac Toe.
- */
 class AlphaBetaPruning {
 
-    private static double maxPly;
+    private static double maxDepth;
     private static int currentIndex = -1;
-    /**
-     * AlphaBetaPruning cannot be instantiated.
-     */
+
     private AlphaBetaPruning () {}
 
-    /**
-     * Execute the algorithm.
-     * @param player        the player that the AI will identify as
-     * @param board         the Tic Tac Toe board to play on
-     * @param maxPly        the maximum depth
-     */
-    static void run (Board.State player, Board board, double maxPly, int depth, int maxDepth) {
-        if (maxPly < 1) {
+    static void run (Board.State player, Board board, double maxDepth, int depth, int maxDepth) {
+        if (maxDepth < 1) {
             throw new IllegalArgumentException("Maximum depth must be greater than 0.");
         }
 
-        AlphaBetaPruning.maxPly = maxPly;
+        AlphaBetaPruning.maxDepth = maxDepth;
         alphaBetaPruning(player, board, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0, depth, maxDepth);
     }
 
     public static int getIndex() {
     	return currentIndex;
     }
-    /**
-     * The meat of the algorithm.
-     * @param player        the player that the AI will identify as
-     * @param board         the Tic Tac Toe board to play on
-     * @param alpha         the alpha value
-     * @param beta          the beta value
-     * @param currentPly    the current depth
-     * @return              the score of the board
-     */
-    private static int alphaBetaPruning (Board.State player, Board board, double alpha, double beta, int currentPly, int depth, int maxDepth) {
-        if (currentPly++ == maxPly || board.isGameOver() || maxDepth == depth) {
-            return score(player, board, currentPly);
+
+    private static int alphaBetaPruning (Board.State player, Board board, double alpha, double beta, int currentDepth, int depth, int maxDepth) {
+        if (currentDepth++ == maxDepth || board.isGameOver() || maxDepth == depth) {
+            return score(player, board, currentDepth);
         }
         if (board.getTurn() == player) {
-            return getMax(player, board, alpha, beta, currentPly, depth, maxDepth);
+            return getMax(player, board, alpha, beta, currentDepth, depth, maxDepth);
         } else {
-            return getMin(player, board, alpha, beta, currentPly, depth, maxDepth);
+            return getMin(player, board, alpha, beta, currentDepth, depth, maxDepth);
         }
     }
 
-    /**
-     * Play the move with the highest score.
-     * @param player        the player that the AI will identify as
-     * @param board         the Tic Tac Toe board to play on
-     * @param alpha         the alpha value
-     * @param beta          the beta value
-     * @param currentPly    the current depth
-     * @return              the score of the board
-     */
-    private static int getMax (Board.State player, Board board, double alpha, double beta, int currentPly, int depth, int maxDepth) {
+    private static int getMax (Board.State player, Board board, double alpha, double beta, int currentDepth, int depth, int maxDepth) {
         //System.out.println("getMax depth = " + depth);
         int indexOfBestMove = -1;
 
         for (Integer theMove : board.getAvailableMoves()) {
-
             Board modifiedBoard = board.getDeepCopy();
             modifiedBoard.move(theMove);
-            int score = alphaBetaPruning(player, modifiedBoard, alpha, beta, currentPly, depth + 1, maxDepth);
+            int score = alphaBetaPruning(player, modifiedBoard, alpha, beta, currentDepth, depth + 1, maxDepth);
 
             if (score > alpha) {
                 alpha = score;
@@ -89,16 +60,8 @@ class AlphaBetaPruning {
 
         return (int)alpha;
     }
-    /**
-     * Play the move with the lowest score.
-     * @param player        the player that the AI will identify as
-     * @param board         the Tic Tac Toe board to play on
-     * @param alpha         the alpha value
-     * @param beta          the beta value
-     * @param currentPly    the current depth
-     * @return              the score of the board
-     */
-    private static int getMin (Board.State player, Board board, double alpha, double beta, int currentPly, int depth, int maxDepth) {
+
+    private static int getMin (Board.State player, Board board, double alpha, double beta, int currentDepth, int depth, int maxDepth) {
         //System.out.println("getMin depth = " + depth);
         int indexOfBestMove = -1;
 
@@ -107,7 +70,7 @@ class AlphaBetaPruning {
             Board modifiedBoard = board.getDeepCopy();
             modifiedBoard.move(theMove);
 
-            int score = alphaBetaPruning(player, modifiedBoard, alpha, beta, currentPly, depth + 1, maxDepth);
+            int score = alphaBetaPruning(player, modifiedBoard, alpha, beta, currentDepth, depth + 1, maxDepth);
 
             if (score < beta) {
                 beta = score;
@@ -128,13 +91,7 @@ class AlphaBetaPruning {
         return (int)beta;
     }
 
-    /**
-     * Get the score of the board.
-     * @param player        the play that the AI will identify as
-     * @param board         the Tic Tac Toe board to play on
-     * @return              the score of the board
-     */
-    private static int score (Board.State player, Board board, int currentPly) {
+    private static int score (Board.State player, Board board, int currentDepth) {
 
         if (player == Board.State.Blank) {
             throw new IllegalArgumentException("Player must be X or O.");
@@ -143,9 +100,9 @@ class AlphaBetaPruning {
         Board.State opponent = (player == Board.State.X) ? Board.State.O : Board.State.X;
 
         if (board.isGameOver() && board.getWinner() == player) {
-            return 10 - currentPly;
+            return 10 - currentDepth;
         } else if (board.isGameOver() && board.getWinner() == opponent) {
-            return -10 + currentPly;
+            return -10 + currentDepth;
         } else {
             return 0;
         }
