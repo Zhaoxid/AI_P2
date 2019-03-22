@@ -7,8 +7,8 @@ import java.util.HashSet;
  */
 public class Board {
 
-    static final int BOARD_WIDTH = 10;
-    static final int PARTS_TO_WIN = 5;
+    private static int BOARD_WIDTH = 3;
+    private static int PARTS_TO_WIN = 3;
 
     public enum State {Blank, X, O}
     private State[][] board;
@@ -19,15 +19,22 @@ public class Board {
     private int moveCount;
     private boolean gameOver;
 
-    /**
-     * Construct the Tic Tac Toe board.
-     */
-    public Board() {
+    public Board(int board_width, int parts_to_win) {
+    	BOARD_WIDTH = board_width;
+    	PARTS_TO_WIN = parts_to_win;
         board = new State[BOARD_WIDTH][BOARD_WIDTH];
         movesAvailable = new HashSet<>();
         reset();
     }
 
+    public int getBoardWidth() {
+    	return BOARD_WIDTH;
+    }
+    
+    public int getPartsToWin() {
+    	return PARTS_TO_WIN;
+    }
+    
     /**
      * Set the cells to be blank and load the available moves (all the moves are
      * available at the start of the game).
@@ -252,7 +259,7 @@ public class Board {
      * @return      an identical copy of the board
      */
     public Board getDeepCopy () {
-        Board board             = new Board();
+        Board board             = new Board(BOARD_WIDTH, PARTS_TO_WIN);
 
         for (int i = 0; i < board.board.length; i++) {
             board.board[i] = this.board[i].clone();

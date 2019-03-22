@@ -8,7 +8,7 @@ import game.Board;
 class AlphaBetaPruning {
 
     private static double maxPly;
-
+    private static int currentIndex = -1;
     /**
      * AlphaBetaPruning cannot be instantiated.
      */
@@ -29,6 +29,9 @@ class AlphaBetaPruning {
         alphaBetaPruning(player, board, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0, depth, maxDepth);
     }
 
+    public static int getIndex() {
+    	return currentIndex;
+    }
     /**
      * The meat of the algorithm.
      * @param player        the player that the AI will identify as
@@ -39,11 +42,9 @@ class AlphaBetaPruning {
      * @return              the score of the board
      */
     private static int alphaBetaPruning (Board.State player, Board board, double alpha, double beta, int currentPly, int depth, int maxDepth) {
-        if (currentPly++ == maxPly || board.isGameOver()) {
+        if (currentPly++ == maxPly || board.isGameOver() || maxDepth == depth) {
             return score(player, board, currentPly);
         }
-
-
         if (board.getTurn() == player) {
             return getMax(player, board, alpha, beta, currentPly, depth, maxDepth);
         } else {
@@ -63,9 +64,7 @@ class AlphaBetaPruning {
     private static int getMax (Board.State player, Board board, double alpha, double beta, int currentPly, int depth, int maxDepth) {
         //System.out.println("getMax depth = " + depth);
         int indexOfBestMove = -1;
-        if (depth > maxDepth) {
-            return (int)beta;
-        }
+
         for (Integer theMove : board.getAvailableMoves()) {
 
             Board modifiedBoard = board.getDeepCopy();
@@ -85,7 +84,9 @@ class AlphaBetaPruning {
 
         if (indexOfBestMove != -1) {
             board.move(indexOfBestMove);
+            currentIndex = indexOfBestMove;
         }
+
         return (int)alpha;
     }
     /**
@@ -100,9 +101,7 @@ class AlphaBetaPruning {
     private static int getMin (Board.State player, Board board, double alpha, double beta, int currentPly, int depth, int maxDepth) {
         //System.out.println("getMin depth = " + depth);
         int indexOfBestMove = -1;
-        if (depth > maxDepth) {
-            return (int)beta;
-        }
+
         for (Integer theMove : board.getAvailableMoves()) {
 
             Board modifiedBoard = board.getDeepCopy();
@@ -123,7 +122,9 @@ class AlphaBetaPruning {
 
         if (indexOfBestMove != -1) {
             board.move(indexOfBestMove);
+            currentIndex = indexOfBestMove;
         }
+        currentIndex = indexOfBestMove;
         return (int)beta;
     }
 

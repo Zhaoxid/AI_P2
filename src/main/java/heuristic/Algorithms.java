@@ -11,12 +11,12 @@ public class Algorithms {
         MiniMax.run(board.getTurn(), board, Double.POSITIVE_INFINITY);
     }
 
-    // ply the maximum depth
     public static void miniMax (Board board, int ply) {
         MiniMax.run(board.getTurn(), board, ply);
     }
 
-    public static void alphaBetaPruning (Board board) {
+    public static int alphaBetaPruning (Board board) {
         AlphaBetaPruning.run(board.getTurn(), board, Double.POSITIVE_INFINITY, 0, 3);
+        return AlphaBetaPruning.getIndex();
     }
 }
