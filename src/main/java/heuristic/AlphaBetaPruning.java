@@ -9,27 +9,27 @@ class AlphaBetaPruning {
 
     private AlphaBetaPruning () {}
 
-    static void run (Board.State player, Board board, double maxDepth, int depth, int maxDepth) {
-        if (maxDepth < 1) {
+    static void run (Board.State player, Board board, double maxDepth, int depth, int maxDp) {
+        if (maxDp< 1) {
             throw new IllegalArgumentException("Maximum depth must be greater than 0.");
         }
 
         AlphaBetaPruning.maxDepth = maxDepth;
-        alphaBetaPruning(player, board, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0, depth, maxDepth);
+        alphaBetaPruning(player, board, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0, depth, maxDp);
     }
 
     public static int getIndex() {
     	return currentIndex;
     }
 
-    private static int alphaBetaPruning (Board.State player, Board board, double alpha, double beta, int currentDepth, int depth, int maxDepth) {
-        if (currentDepth++ == maxDepth || board.isGameOver() || maxDepth == depth) {
+    private static int alphaBetaPruning (Board.State player, Board board, double alpha, double beta, int currentDepth, int depth, int maxDp) {
+        if (currentDepth++ == maxDp || board.isGameOver() || maxDp == depth) {
             return score(player, board, currentDepth);
         }
         if (board.getTurn() == player) {
-            return getMax(player, board, alpha, beta, currentDepth, depth, maxDepth);
+            return getMax(player, board, alpha, beta, currentDepth, depth, maxDp);
         } else {
-            return getMin(player, board, alpha, beta, currentDepth, depth, maxDepth);
+            return getMin(player, board, alpha, beta, currentDepth, depth, maxDp);
         }
     }
 
