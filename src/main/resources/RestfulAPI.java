@@ -29,7 +29,7 @@ public class RestfulAPI {
     static final String userIdName = "userId";
     static final String userIdValue = "778";
     static String gameId;
-    static String teamId = "1128";
+    static String teamId = "1188";
     static String moveId;
     static String move;
     static String nextMove;
