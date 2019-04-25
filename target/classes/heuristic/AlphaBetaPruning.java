@@ -74,10 +74,8 @@ class AlphaBetaPruning {
         }
 
         if (indexOfBestMove != -1) {
-        	currentIndex = indexOfBestMove;
             board.move(indexOfBestMove);
         }
-        currentIndex = indexOfBestMove;
         return (int)alpha;
     }
     /**
@@ -131,10 +129,8 @@ class AlphaBetaPruning {
         }
 
         if (indexOfBestMove != -1) {
-        	currentIndex = indexOfBestMove;
             board.move(indexOfBestMove);
         }
-        currentIndex = indexOfBestMove;
         return (int)beta;
     }
 
